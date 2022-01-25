@@ -1,0 +1,36 @@
+import sys
+
+class Switches(object):
+
+    def __init__(self):
+        self.N = None
+        self.switches = None
+        self.T = None
+        self.students = None
+
+    def input(self):
+        self.N = int(sys.stdin.readline())
+        self.switches = sys.stdin.readline().split(' ')
+        self.T = int(sys.stdin.readline())
+        for i in range(self.T):
+            self.students = \
+                list(map(lambda x: int(x),
+                     sys.stdin.readline().split(' ')))
+
+    def get_last_state(self):
+        for gender, n in self.students:
+            if gender == 1:
+                self._manipulate_by_boy(n)
+            else:
+                self._manipulate_by_girl(n)
+
+    def manipulate_by_boy(self, n):
+        for 
+
+    def manipulate_by_girl(self, n):
+        pass
+        
+N = int(sys.stdin.readline())
+switches = sys.stdin.readline().split(' ')
+
+

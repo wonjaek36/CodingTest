@@ -1,0 +1,47 @@
+import sys
+
+class KinshipDegreeCalculator(object):
+
+    def __init__(N, ancestors):
+        self.N = N
+        self.ancestors = ancestors
+        self.parents = [-1 for _ in range(N)]
+        for p, c in self.ancestors:        
+            self.parents[c] = p
+
+    def _get_kinship_degree_ancestors(self, p, c, degrees):
+        if p == -1:
+            return
+        degrees[p] = c
+        self._get_kinship_degree_ancestors(
+            self.parents[p], c+1, degrees)
+    
+    def get_kinship_degree(self, A, B):
+        A_degrees = [-1 for _ in range(len(self.ancestors))]
+        B_degrees = [-1 for _ in range(len(self.ancestors))]
+        self._get_kinship_degree_ancestors(A, 0, A_degrees)
+
+        degree = self.N + 1
+        for a_d, b_d in zip(A_degrees, B_degrees):
+            if a_d + b_d > 0:
+                degree = min(degree, a_d + b_d)
+
+        return degree
+
+if __name__ == '__main__':
+    from pudb import set_trace
+    
+    T = int(sys.stdin.readline())
+    A, B = list(map(lambda x: int(x), sys.stdin.readline().split(' ')))
+    m = int(sys.stdin.readline())
+    ancestors = []
+    for i in range(m):
+        ancestors.append(
+            list(map(lambda x: int(x), sys.stdin.readline().split(' '))))
+
+    set_trace()
+    calc = KinshipDegreeCalculator(T, ancestors)
+    print(calc.get_kinship_degree(A, B))
+    
+
+
