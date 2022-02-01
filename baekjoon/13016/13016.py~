@@ -1,0 +1,70 @@
+import sys
+from sys import stdin
+
+class DistanceCalculator(object):
+    
+    def __init__(self, root, n, edges):
+        self._n = n
+        self._root = root
+        self._edges = edges
+        self._distance = [-1]*(n+1)
+
+    @property
+    def distance(self):
+        return self._distance
+
+    def _visit_cities(self, city, dis):
+        if self._distance[city] != -1:
+            return
+            
+        self._distance[city] = dis
+        for n, d in self._edges[city]:
+            self._visit_cities(n, dis+d)
+        
+    def get_distance(self):
+        self._visit_cities(self._root, 0)
+        return self.distance
+
+class TravelDistance(object):
+    
+    def __init__(self, n, edges):
+        self._n = n
+        self._edges = edges
+    
+    def _get_tree_diameter_dis(self):
+        dc = DistanceCalculator(1, self._n, self._edges)
+        p1_distances = dc.get_distance()
+        max_dis = max(p1_distances)
+        p1 = p1_distances.index(max_dis)
+
+        dc = DistanceCalculator(p1, self._n, self._edges)
+        p2_distances = dc.get_distance()
+        max_dis = max(p2_distances)
+        p2 = p2_distances.index(max_dis)
+
+        return p1_distances, p2_distances
+        
+    def get_longest_distance(self):
+        p1_dis, p2_dis = self._get_tree_diameter_dis()
+        dis = map(lambda x: max(x), zip(p1_dis, p2_dis))
+        return dis
+
+
+if __name__ == '__main__':
+    n = int(stdin.readline())
+    edges = [set() for _ in range(n+1)]
+    for _ in range(n-1):
+        f, t, d = list(
+            map(int, stdin.readline().split(' ')))
+        edges[f].add((t, d))
+        edges[t].add((f, d))
+
+    import pudb
+    pudb.set_trace()
+    td = TravelDistance(n, edges)
+    dis = td.get_longest_distance()
+    print('\n'.join(map(str, dis)))
+    
+        
+        
+
