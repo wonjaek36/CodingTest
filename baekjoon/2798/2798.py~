@@ -1,0 +1,21 @@
+import sys
+
+
+N, M = list(map(int, sys.stdin.readline().split(' ')))
+cards = list(map(int, sys.stdin.readline().split(' ')))
+
+m = 1e10
+c = 0
+for i in range(N):
+    for j in range(N):
+        for k in range(N):
+            if i == j or j == k or i == k:
+                continue
+
+            s = cards[i]+cards[j]+cards[k]
+            if m > M-s and M-s >= 0:
+                m = abs(M-s)
+                c = s
+
+print(c)
+                
