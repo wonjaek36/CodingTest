@@ -1,0 +1,30 @@
+"""
+ * Created by Wonjae Kim
+ * Watched by Bomi Ahn
+"""
+
+import sys
+from sys import stdin
+
+
+class JewelThief(object):
+
+    def __init__(self, jewels, bags):
+        pass
+
+
+
+if __name__ == '__main__':
+    n, k = map(int, stdin.readline().split(' '))
+    jewels = []
+    bags = []
+
+    for i in range(n):
+        m, v = map(int, stdin.readline().split(' '))
+        jewels.append((m, v))
+
+    for i in range(k):
+        c = int(stdin.readline())
+        bags.append(c)
+    
+    jt = JewelThief(jewels, bags)
