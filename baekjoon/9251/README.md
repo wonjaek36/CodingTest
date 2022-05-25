@@ -2,7 +2,7 @@ Category
 * Dynamic Programming
 
 Solved
-* Table(i)(j)는 str1(0~i-1)와 str2(0~j-1) 문자열의 LCS
+* Table(i)(j)는 str1(0 ~ i-1)와 str2(0 ~ j-1) 문자열의 LCS
 * Table(i)(j) = max(Table(i-1)(j),
                     Table(i)(j-1),
                     Table(i-1)(j-1)+1 if str1[i] == str2[j] else 0)
