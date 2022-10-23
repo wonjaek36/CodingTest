@@ -1,4 +1,6 @@
 from sys import stdin
+import sys
+sys.setrecursionlimit(10**6)
 
 
 class SCC(object):
@@ -40,18 +42,18 @@ class SCC(object):
         for nxt in self.connections[c]:
             min_v = min(min_v, self._traverse(nxt))
 
-        if min_v == self.visited[c]:
+        if not self.is_sccs[c] and min_v == self.visited[c]:
             p = self.top
             while self.stack[p] != c and p >= 0:
                 p -= 1
             assert p != -1
 
             scc = []
-            while self.top >= p:
+            vertex = -1
+            while vertex != c:
                 vertex = self._stack_pop()
                 self.is_sccs[vertex] = True
                 scc.append(vertex)
-
             self.sccs.append(sorted(scc))
 
         return min_v
@@ -63,7 +65,9 @@ class SCC(object):
 
     def get_sccs(self):
         self._make_linked_list()
-        self._traverse(1)
+        for i in range(1, self.v+1):
+            if self.visited[i] == -1:
+                self._traverse(i)
         return sorted(self.sccs)
 
 
